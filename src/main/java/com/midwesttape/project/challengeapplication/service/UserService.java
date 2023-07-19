@@ -60,4 +60,16 @@ public class UserService {
 
     }
 
+    public void updateUser(User user) {
+        User existingUser = user(user.getId());
+        
+        if (existingUser != null) {
+            // User exists, perform an UPDATE operation.
+            template.update(
+                "UPDATE User SET firstName = ?, lastName = ?, username = ?, password = ? WHERE id = ?",
+                user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(), user.getId()
+            );
+        }
+    }
+
 }
